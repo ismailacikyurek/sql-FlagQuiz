@@ -18,7 +18,11 @@ class QuizEkraniViewController: UIViewController {
     @IBOutlet weak var btnC: UIButton!
     @IBOutlet weak var btnD: UIButton!
     
+    @IBOutlet weak var dimage: UIImageView!
+    @IBOutlet weak var Aimage: UIImageView!
     
+    @IBOutlet weak var cimage: UIImageView!
+    @IBOutlet weak var Bimage: UIImageView!
     var sorular = [Bayraklar]()
     var yanlisSecenekler = [Bayraklar]()
     
@@ -36,6 +40,17 @@ class QuizEkraniViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         imageViewBayrak.layer.borderWidth = 2
+        btnA.layer.cornerRadius = 15
+        btnA.layer.borderWidth = 2
+        btnB.layer.cornerRadius = 15
+        btnB.layer.borderWidth = 2
+        btnC.layer.cornerRadius = 15
+        btnC.layer.borderWidth = 2
+        btnD.layer.cornerRadius = 15
+        btnD.layer.borderWidth = 2
+        
+      
+        
        
         sorular = Bayraklardao().rasgele5Getir()
        
@@ -46,6 +61,7 @@ class QuizEkraniViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let gidilecekVC = segue.destination as! SonucEkraniViewController
         gidilecekVC.dogruSayisi = dogruSayac
+        gidilecekVC.yanlisSayisi = yanlisSayac
         gidilecekVC.hatalar = yanlisBilinenler
        
     }
@@ -121,22 +137,68 @@ class QuizEkraniViewController: UIViewController {
     
     
     @IBAction func btnATikla(_ sender: Any) {
-        dogruKontrol(button: btnA)
-        soruSayacKontrol()
+       
+        if Aimage.image == UIImage(named: "yes") {
+            print("no yao")
+            Aimage.image = UIImage(named: "no")
+        } else {
+            Aimage.image = UIImage(named: "yes")
+            Bimage.image = UIImage(named: "no")
+            cimage.image = UIImage(named: "no")
+            dimage.image = UIImage(named: "no")
+        }
     }
     
     @IBAction func btnBTikla(_ sender: Any) {
-        dogruKontrol(button: btnB)
-        soruSayacKontrol()
+        if Bimage.image == UIImage(named: "yes") {
+            Bimage.image = UIImage(named: "no")
+        } else {
+            Aimage.image = UIImage(named: "no")
+            Bimage.image = UIImage(named: "yes")
+            cimage.image = UIImage(named: "no")
+            dimage.image = UIImage(named: "no")
+        }
+           
+       
+       
     }
     @IBAction func btnCTikla(_ sender: Any) {
-        dogruKontrol(button: btnC)
-        soruSayacKontrol()
+      
+        if cimage.image == UIImage(named: "yes") {
+            cimage.image = UIImage(named: "no")
+        } else {
+            Aimage.image = UIImage(named: "no")
+            Bimage.image = UIImage(named: "no")
+            cimage.image = UIImage(named: "yes")
+            dimage.image = UIImage(named: "no")
+        }
     }
     @IBAction func btnDTikla(_ sender: Any) {
-        dogruKontrol(button: btnD)
-        soruSayacKontrol()
+        if dimage.image == UIImage(named: "yes") {
+            dimage.image = UIImage(named: "no")
+        } else {
+            Aimage.image = UIImage(named: "no")
+            Bimage.image = UIImage(named: "no")
+            cimage.image = UIImage(named: "no")
+            dimage.image = UIImage(named: "yes")
+        }
     }
     
+    @IBAction func GecTikla(_ sender: Any) {
+        
+        if Aimage.image == UIImage(named: "yes") {
+            dogruKontrol(button: btnA)
+        }
+        if Bimage.image == UIImage(named: "yes") {
+            dogruKontrol(button: btnB)
+        }
+         if cimage.image == UIImage(named: "yes") {
+            dogruKontrol(button: btnC)
+        }
+        if dimage.image == UIImage(named: "yes") {
+            dogruKontrol(button: btnD)
+        }
+        soruSayacKontrol()
+    }
     
 }

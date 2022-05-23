@@ -8,9 +8,16 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    
+    @IBOutlet weak var imageView: UIImageView!
+    
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        imageView.alpha = 0.2
         VeriTabaniKopyalaa()
     }
     func VeriTabaniKopyalaa() {
